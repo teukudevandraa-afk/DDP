@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JelajahNusantara - Website Travelling</title>
+    <style>
+        /* --- CSS GABUNGAN DI SINI (Internal CSS) --- */
+
+        /* Reset dasar agar tampilan konsisten */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7f6;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* --- Komponen Header & Navigasi --- */
+        header {
+            background-color: #005b96; /* Warna biru laut */
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            /* Membuat header tetap di atas saat scroll (Sticky) */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+        }
+
+        header h1 span {
+            color: #b3cde0;
+        }
+
+        /* Navigasi Menu */
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #b3cde0;
+        }
+
+        /* --- Komponen Utama (Main Sections) --- */
+        /* Memberi jarak antar section utama agar tidak terlalu rapat */
+        section.main-section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #e0e0e0;
+            /* Trik agar saat di-klik anchor link, judul tidak tertutup header sticky */
+            scroll-margin-top: 70px; 
+        }
+
+        /* Gaya untuk Hero Banner (Bagian Beranda) */
+        .hero-banner {
+            /* Menggunakan gambar placeholder online */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://picsum.photos/id/1039/1200/600');
+            background-size: cover;
+            background-position: center;
+            height: 450px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px; /* Sedikit lengkungan di bawah banner */
+        }
+
+        .hero-banner h2 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-banner p {
+            font-size: 1.2rem;
+        }
+
+        /* Gaya untuk Kotak Konten biasa */
+        .content-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            color: #005b96;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #b3cde0;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+            font-size: 2rem;
+        }
+
+        /* --- Gaya Bagian Destinasi (Grid Kartu) --- */
+        .destinasi-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 280px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h3 {
+            color: #005b96;
+            margin-bottom: 10px;
+        }
+
+        /* --- Gaya Bagian Kontak (Formulir) --- */
+        .contact-container {
+            max-width: 700px; /* Membatasi lebar formulir agar lebih rapi */
+            margin: auto;
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: #005b96;
+            outline: none;
+        }
+
+        .btn-submit {
+            display: inline-block;
+            background-color: #005b96;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background-color: #004470;
+        }
+
+        /* --- Komponen Footer --- */
+        footer {
+            background-color: #2c3e50;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: auto; /* Memastikan footer di paling bawah */
+        }
+
+        footer p {
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <h1>Jelajah<span>Nusantara</span></h1>
+            <nav>
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#destinasi">Destinasi</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="beranda" class="main-section" style="padding-top: 0;">
+        <div class="hero-banner">
+            <h2>Temukan Keindahan Indonesia</h2>
+            <p>Mulai petualangan Anda dari Sabang sampai Merauke sekarang juga.</p>
+        </div>
+
+        <div class="container">
+            <div class="content-box">
+                <h2 class="section-title">Tentang Kami</h2>
+                <p>Selamat datang di JelajahNusantara, panduan perjalanan terpercaya Anda untuk mengeksplorasi kekayaan alam dan budaya Indonesia. Kami berdedikasi untuk memberikan informasi terbaik mengenai destinasi wisata tersembunyi maupun populer di tanah air.</p>
+                <br>
+                <p><strong>Mengapa memilih berwisata di dalam negeri?</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Kekayaan alam yang luar biasa (pantai, gunung, hutan).</li>
+                    <li>Keberagaman budaya dan kuliner yang unik.</li>
+                    <li>Membantu memajukan ekonomi lokal.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="destinasi" class="main-section">
+        <div class="container">
+            <h2 class="section-title">Destinasi Populer</h2>
+            <p>Berikut adalah beberapa rekomendasi tempat wisata terbaik di Indonesia yang wajib Anda kunjungi.</p>
+            
+            <div class="destinasi-grid">
+                <article class="card">
+                    <img src="https://picsum.photos/id/1048/300/200" alt="Pura Ulun Danu Bali">
+                    <div class="card-body">
+                        <h3>Pulau Bali</h3>
+                        <p>Nikmati keindahan pantai Kuta, budaya Ubud yang kental, dan pura-pura yang megah.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img src="https://picsum.photos/id/1015/300/200" alt="Kepulauan Raja Ampat">
+                    <div class="card-body">
+                        <h3>Raja Ampat, Papua</h3>
+                        <p>Surga bagi penyelam. Kepulauan dengan pemandangan bawah laut paling spektakuler.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img src="https://picsum.photos/id/1040/300/200" alt="Candi Borobudur Jogja">
+                    <div class="card-body">
+                        <h3>Yogyakarta</h3>
+                        <p>Kota budaya dengan sejarah panjang. Kunjungi Candi Borobudur dan Prambanan.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                     <img src="https://picsum.photos/id/1016/300/200" alt="Gunung Bromo">
+                    <div class="card-body">
+                        <h3>Gunung Bromo, Jatim</h3>
+                        <p>Saksikan matahari terbit yang magis di atas lanskap pegunungan yang menakjubkan.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="main-section">
+        <div class="container contact-container">
+            <div class="content-box">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <p>Punya pertanyaan tentang destinasi atau ingin bekerja sama? Isi formulir di bawah ini.</p>
+                <br>
+
+                <form class="contact-form" action="#" method="post">
+                    
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap:</label>
+                        <input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Alamat Email:</label>
+                        <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="minat">Minat Destinasi Utama:</label>
+                        <select id="minat" name="minat">
+                            <option value="pantai">Wisata Pantai & Laut</option>
+                            <option value="gunung">Wisata Gunung & Alam</option>
+                            <option value="budaya">Wisata Budaya & Sejarah</option>
+                            <option value="kuliner">Wisata Kuliner</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pesan">Pesan Anda:</label>
+                        <textarea id="pesan" name="pesan" rows="5" placeholder="Tuliskan pertanyaan atau pesan Anda di sini..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 JelajahNusantara. Dibuat dalam satu file untuk Tugas Pemrograman Web 1.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
